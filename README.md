@@ -33,6 +33,7 @@ It uses Docker Compose to connect a backend API, a Redis cache, and an Nginx rev
 
 - **Main App**: `http://localhost`
 - **RedisInsight**: `http://localhost:5540`
+- **Deployed App (AWS EC2)**: `http://18.144.55.124/`
 
 ## Run Locally
 

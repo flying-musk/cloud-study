@@ -23,7 +23,9 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/mars-app:latest
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/mars-app:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/mars-app:v1.2
 
   deploy:
     needs: build-and-push

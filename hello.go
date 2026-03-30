@@ -4,8 +4,9 @@ import (
 	"context"
 	"fmt"
 	"net/http"
-	"os" // 讀取環境變數用
+	"os"
 
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/redis/go-redis/v9"
 )
 
@@ -38,6 +39,12 @@ func main() {
 		fmt.Fprintf(w, "[%s] 你好！你是第 %d 位訪客。 Monday 03/25 - 1", appName, val)
 	})
 
+	http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		fmt.Fprint(w, "OK")
+	})
+
 	fmt.Printf("服務 [%s] 啟動在 :8080...\n", appName)
+	http.Handle("/metrics", promhttp.Handler())
 	http.ListenAndServe(":8080", nil)
 }

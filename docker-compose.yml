@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   app:
-    image: flyingmusk320/mars-app:v1.1
+    image: flyingmusk320/mars-app:v1.2
     expose:
       - "8080"
     environment:
@@ -39,8 +39,29 @@ services:
     networks:
       - cloud-network
 
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    networks:
+      - cloud-network
+    restart: always
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+    networks:
+      - cloud-network
+    restart: always
+
 networks:
   cloud-network:
 
 volumes:
   redis-data:
+  prometheus-data:
+  grafana-data:

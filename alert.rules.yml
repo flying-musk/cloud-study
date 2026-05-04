@@ -1,0 +1,11 @@
+groups:
+  - name: mars-app-alerts
+    rules:
+      - alert: MarsAppIsDown
+        expr: up{job="mars-app"} == 0
+        for: 15s
+        labels:
+          severity: warning
+        annotations:
+          summary: "Mars app is down"
+          description: "Prometheus could not scrape mars-app."
